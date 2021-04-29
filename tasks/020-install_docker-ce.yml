@@ -1,0 +1,22 @@
+---
+
+- name: Install required packages
+  yum:
+    name: "{{ general_packages }}"
+    state: present
+
+- name: Install docker-ce.repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+
+- name: Install docker-ce
+  yum:
+    name: "{{ docker_packages }}"
+    state: present
+
+- name: Start docker-ce
+  systemd:
+    name: docker
+    state: started
+    enabled: true

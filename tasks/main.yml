@@ -1,0 +1,7 @@
+---
+
+- include: 020-install_docker-ce.yml
+  tags: install_docker-ce
+
+- include: 030-install_pip_packages.yml
+  tags: install_pip_packages

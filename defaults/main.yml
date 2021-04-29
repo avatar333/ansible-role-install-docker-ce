@@ -1,0 +1,15 @@
+config_dir: /configs
+
+general_packages:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+  - mlocate
+  - net-tools
+  - python2-pip
+
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - docker-compose
+  - containerd.io

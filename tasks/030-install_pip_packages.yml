@@ -1,0 +1,6 @@
+---
+
+- name: Install pip-related packages
+  pip:
+    name: 
+      - docker

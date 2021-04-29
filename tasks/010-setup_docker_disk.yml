@@ -1,0 +1,35 @@
+---
+
+- name: Check if variable is defined
+  assert:
+    that:
+      - raw_device != ""
+    fail_msg: "'raw_device' variable is empty/not defined"
+    success_msg: "'raw_device' value is : {{ raw_device }}"
+
+- name: Create VG
+  lvg:
+    vg: vg_docker
+    pvs: /dev/{{ raw_device }}
+
+- name: Create LV
+  lvol:
+    vg: vg_docker
+    lv: lv_docker
+    size: +100%FREE
+
+- name: Create XFS filesystem
+  filesystem:
+    fstype: xfs
+    dev: /dev/mapper/vg_docker-lv_docker
+    opts: -n ftype=1
+    force: yes
+
+- name: Create entry in fstab and mount it
+  mount:
+    path: /var/lib/docker
+    src: /dev/mapper/vg_docker-lv_docker
+    fstype: xfs
+    opts: defaults
+    state: mounted
+
